@@ -134,3 +134,17 @@ table {
 *::after {
   box-sizing: border-box;
 }
+
+/* ================= */
+.container {
+  max-width: 88%;
+  margin: 0 auto;
+}
+th,
+td {
+  vertical-align: top;
+}
+
+#graph {
+  border: 1px solid black;
+}
