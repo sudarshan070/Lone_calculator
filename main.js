@@ -81,7 +81,7 @@ window.onload = function () {
 };
 
 function chart(principal, interest, monthly, payments) {
-  var graph = document.getElementById("graph");
+  var graph = document.querySelector("#graph");
   graph.width = graph.width;
 
   if (arguments.length == 0 || !graph.getContext) return;
@@ -123,7 +123,7 @@ function chart(principal, interest, monthly, payments) {
 
   g.beginPath();
   g.moveTo(paymentToX(0), amountToY(bal));
-  for (var p = 1; p <= payments; p++) {
+  for (var i = 1; i <= payments; i++) {
     var thisMonthsInterest = bal * interest;
     bal -= monthly - thisMonthsInterest;
     g.lineTo(paymentToX(i), amountToY(bal));
@@ -133,4 +133,24 @@ function chart(principal, interest, monthly, payments) {
   g.stroke();
   g.fillStyle = "black";
   g.fillText = ("Lone Balance", 20, 50);
+
+  g.textAlign = "center";
+  var y = amountToY(0);
+  for (let year = 1; year * 12 <= payments; year++) {
+    var x = paymentToX(year * 12);
+    g.fillRect(x - 0.5, y - 3, 1, 3);
+    if (year == 1) g.fillText("Year", x, y - 5);
+    if (year % 5 == 0 && year * 12 !== payments)
+      g.fillText(String(year), x, y - 5);
+  }
+
+  g.textAlign = "right";
+  g.textBaseLine = "middle";
+  var ticks = [monthly * payments, principal];
+  var rightEdge = paymentToX(payments);
+  for (let i = 1; i <= ticks.length; i++) {
+    var y = amountToY(ticks[i]);
+    g.fillRect(rightEdge - 3, y - 0.5, 3, 1);
+    g.fillText(String(ticks[i].toFixed(0)), rightEdge - 5, y);
+  }
 }
