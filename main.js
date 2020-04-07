@@ -42,7 +42,42 @@ window.onload = function () {
   if (window.localStorage && localStorage.lone_amount) {
     amount.value = localStorage.lone_amount;
     apr.value = localStorage.lone_apr;
-    zipcode.value = lone_zipcode;
-    years.value = lone_zipcode;
+    zipcode.value = localStorage.lone_zipcode;
+    // years.value = localStorage.lone_years;
+  }
+
+  function getLenders(amount, apr, years, zipcode) {
+    if (!window.XMLHttpRequest) return;
+    var ad = document.getElementById("lenders");
+    if (!ad) return;
+
+    var url =
+      "getLenders.php" +
+      "?amt=" +
+      encodeURIComponent(amount) +
+      "&apr=" +
+      encodeURIComponent(apr) +
+      "&yrs=" +
+      encodeURIComponent(years) +
+      "&zip=" +
+      encodeURIComponent(zipcode);
+
+    var req = new XMLHttpRequest();
+    req.open("GET", url);
+    req.send(null);
+
+    if (req.readyState == 4 && req.status == 200) {
+      var response = req.responseText;
+      var lenders = JSON.parse(response);
+
+      var list = "";
+      for (var i = 0; i < lenders.length; i++) {
+        list +=
+          "<li><a href='" + lenders[i].url + "'>" + lenders[i].name + "</a>";
+      }
+      ad.innerHTML = "<ul>" + list + "</ul>";
+    }
   }
 };
+
+
