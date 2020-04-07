@@ -94,8 +94,43 @@ function chart(principal, interest, monthly, payments) {
   }
   function amountToY(a) {
     return height - (a * height) / (monthly * payments * 1.05);
-
-    g.moveTo = (paymentToX(0), amountToY(0));
-    g.lineTo = (paymentToX(payments), amountToY(monthly * payments));
   }
+
+  g.moveTo = (paymentToX(0), amountToY(0));
+  g.lineTo = (paymentToX(payments), amountToY(monthly * payments));
+
+  g.lineTo(paymentToX(payments), amountToY(0));
+  g.closePaht();
+  g.fillStyle = "#f88";
+  g.fill();
+  g.font = "bold 12px sans-serif";
+  g.fillText("Total Interest Payments", 20, 20);
+  var equity = 0;
+  g.beginPath();
+  g.moveTo(paymentToX(0), amountToY(0));
+
+  for (let i = 1; i <= payments; i++) {
+    var thisMonthsInterest = (principal - equity) * interest;
+    equity += monthly - thisMonthsInterest;
+    g.lineTo(paymentToX(i), amountToY(equity));
+  }
+
+  g.lineTo(paymentToX(payments), amountToY(0));
+  g.closePaht();
+  g.fillStyle = "green";
+  g.fill();
+  g.fillText("Total Equity", 20, 35);
+
+  g.beginPath();
+  g.moveTo(paymentToX(0), amountToY(bal));
+  for (var p = 1; p <= payments; p++) {
+    var thisMonthsInterest = bal * interest;
+    bal -= monthly - thisMonthsInterest;
+    g.lineTo(paymentToX(i), amountToY(bal));
+  }
+
+  g.lineWidth = 3;
+  g.stroke();
+  g.fillStyle = "black";
+  g.fillText = ("Lone Balance", 20, 50);
 }
