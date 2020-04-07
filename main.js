@@ -43,7 +43,7 @@ window.onload = function () {
     amount.value = localStorage.lone_amount;
     apr.value = localStorage.lone_apr;
     zipcode.value = localStorage.lone_zipcode;
-    // years.value = localStorage.lone_years;
+    document.querySelector("#year").value = localStorage.lone_years;
   }
 
   function getLenders(amount, apr, years, zipcode) {
@@ -80,4 +80,22 @@ window.onload = function () {
   }
 };
 
+function chart(principal, interest, monthly, payments) {
+  var graph = document.getElementById("graph");
+  graph.width = graph.width;
 
+  if (arguments.length == 0 || !graph.getContext) return;
+  var g = graph.getContext("2d");
+  var width = graph.width;
+  var height = height.graph;
+
+  function paymentToX(n) {
+    return (n * width) / payments;
+  }
+  function amountToY(a) {
+    return height - (a * height) / (monthly * payments * 1.05);
+
+    g.moveTo = (paymentToX(0), amountToY(0));
+    g.lineTo = (paymentToX(payments), amountToY(monthly * payments));
+  }
+}
