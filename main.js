@@ -12,4 +12,19 @@ function calculate() {
 
   var x = Math.pow(1 + interest, payments);
   var monthly = (principal * x * interest) / (x - 1);
+
+  if (isFinite(monthly)) {
+    payment.innerHTML = monthly.toFixed(2);
+    total.innerHTML = (monthly * payments).toFixed(2);
+    totalinterest.innerHTML = (monthly * payments - principal).toFixed(2);
+    save(amount.value, apr.value, years.value, zipcode.value);
+    try {
+      getLenders(amount.value, apr.value, years.value, zipcode.value);
+    } catch (e) {}
+  } else {
+    payment.innerHTML = "";
+    total.innerHTML = "";
+    totalinterest.innerHTML = "";
+    char();
+  }
 }
