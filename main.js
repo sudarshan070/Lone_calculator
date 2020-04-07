@@ -1,7 +1,7 @@
 function calculate() {
   var amount = document.querySelector("#amount");
   var apr = document.querySelector("#apr");
-  var year = document.querySelector("#year");
+  var years = document.querySelector("#year");
   var zipcode = document.querySelector("#zipcode");
   var output = document.querySelector("#output");
   var totalinterest = document.querySelector("#totalinterest");
@@ -25,6 +25,24 @@ function calculate() {
     payment.innerHTML = "";
     total.innerHTML = "";
     totalinterest.innerHTML = "";
-    char();
+    chart();
   }
 }
+
+function save(amount, apr, zipcode, years) {
+  if (window.localStorage) {
+    localStorage.lone_amount = amount;
+    localStorage.lone_apr = apr;
+    localStorage.lone_zipcode = zipcode;
+    localStorage.lone_years = years;
+  }
+}
+
+window.onload = function () {
+  if (window.localStorage && localStorage.lone_amount) {
+    amount.value = localStorage.lone_amount;
+    apr.value = localStorage.lone_apr;
+    zipcode.value = lone_zipcode;
+    years.value = lone_zipcode;
+  }
+};
