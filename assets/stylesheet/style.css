@@ -170,3 +170,15 @@ button {
 th {
   margin-right: 8px;
 }
+/* tr {
+  margin-top: 12px;
+} */
+
+.output {
+  margin-left: 12px;
+  background: #1dfa42;
+  /* padding: 4px; */
+}
+.graph_heading {
+  padding-left: 2rem;
+}

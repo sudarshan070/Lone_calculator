@@ -22,9 +22,9 @@ function calculate() {
       getLenders(amount.value, apr.value, years.value, zipcode.value);
     } catch (e) {}
   } else {
-    payment.innerHTML = "";
-    total.innerHTML = "";
-    totalinterest.innerHTML = "";
+    // payment.innerHTML = "";
+    // total.innerHTML = "";
+    // totalinterest.innerHTML = "";
     chart();
   }
 }
